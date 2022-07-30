@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "supportapi-dapr": "StartWithoutDebugging",
+        "supportapi": "StartDebugging",
+        "vsdockerwebapp": "StartDebugging",
+        "vsdockerwebapp-dapr": "StartWithoutDebugging"
+      }
+    }
+  }
+}

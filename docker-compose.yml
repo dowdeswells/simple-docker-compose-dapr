@@ -1,0 +1,61 @@
+version: '3.4'
+
+services:
+  vsdockerwebapp:
+    image: ${DOCKER_REGISTRY-}vsdockerwebapp
+    build:
+      context: .
+      dockerfile: VSDockerWebApp/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+
+  vsdockerwebapp-dapr:
+    image: "daprio/daprd:latest"
+    network_mode: "service:vsdockerwebapp"
+    command: ["./daprd",
+      "-app-id", "VsDockerWebApp",
+      "-app-port", "80"
+      ]
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+    depends_on:
+      - vsdockerwebapp
+
+  supportapi:
+    image: ${DOCKER_REGISTRY-}supportapi
+    build:
+      context: .
+      dockerfile: SupportApi/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  supportapi-dapr:
+    image: "daprio/daprd:latest"
+    network_mode: "service:supportapi"
+    command: ["./daprd",
+      "-app-id", "SupportApi",
+      "-app-port", "80"
+      ]
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+    depends_on:
+      - supportapi
+
+
+  #dapr-placement:
+  #  image: "daprio/dapr:1.7.2"
