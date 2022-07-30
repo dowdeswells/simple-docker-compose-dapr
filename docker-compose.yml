@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+  
   vsdockerwebapp:
     image: ${DOCKER_REGISTRY-}vsdockerwebapp
     build:
@@ -10,7 +11,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     ports:
-      - "80"
+      - "5551:80"
+      - "55551:50001"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -21,7 +23,11 @@ services:
     network_mode: "service:vsdockerwebapp"
     command: ["./daprd",
       "-app-id", "VsDockerWebApp",
-      "-app-port", "80"
+      "-app-port", "80",
+      "-log-level", "debug",
+      "-placement-host-address", "dapr-placement:50000",
+      "-components-path", "/components",
+      "-config", "/configuration/blog-config.yaml"
       ]
     volumes:
       - "./dapr/components/:/components"
@@ -38,24 +44,38 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     ports:
-      - "80"
+      - "5552:80"
+      - "55552:50001"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - redis
 
   supportapi-dapr:
     image: "daprio/daprd:latest"
     network_mode: "service:supportapi"
     command: ["./daprd",
-      "-app-id", "SupportApi",
-      "-app-port", "80"
+      "-app-id", "supportapi",
+      "-app-port", "80",
+      "-log-level", "debug",
+      "-placement-host-address", "dapr-placement:50000",
+      "-components-path", "/components",
+      "-config", "/configuration/blog-config.yaml"
       ]
     volumes:
       - "./dapr/components/:/components"
       - "./dapr/configuration/:/configuration"
     depends_on:
       - supportapi
+  
+  redis:
+    image: redis:alpine
+    ports:
+      - "4379:6379"
 
-
-  #dapr-placement:
-  #  image: "daprio/dapr:1.7.2"
+  dapr-placement:
+    image: "daprio/dapr:latest"
+    command: ["./placement", "-port", "50000", "-log-level", "debug"]
+    ports:
+      - "40000:50000"    

@@ -38,7 +38,7 @@ namespace VSDockerWebApp.Controllers
         private async Task<IEnumerable<SupportItem>> GetItems()
         {
             var items = await _daprClient.InvokeMethodAsync<IEnumerable<SupportItem>>(HttpMethod.Get,
-                "SupportApi", "support");
+                "supportapi", "support");
             return items;
         }
 

@@ -12,6 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{865C861D-7F28-4C4F-9F3A-65B15966006A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{41A80B9B-F13D-4B53-8952-248DEBDDD41D}"
+	ProjectSection(SolutionItems) = preProject
+		dapr\components\blog-secrets.json = dapr\components\blog-secrets.json
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configuration", "{22BFD240-CA8B-41AB-BC9B-F77D03E67224}"
 EndProject
@@ -19,6 +22,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{9750A7B0-7087-405F-9ED8-40A021D44A78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogger", "Application\Blogger\Blogger.csproj", "{499C4CC8-B793-4B71-B345-D1F6EB42CD5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloggerInterface", "Application\BloggerInterface\BloggerInterface.csproj", "{D5D7CC98-6234-407C-AC08-5A02AEA528CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +47,14 @@ Global
 		{30AFB7F7-2E3C-4CE7-A0D5-FB4DBAAD359D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30AFB7F7-2E3C-4CE7-A0D5-FB4DBAAD359D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30AFB7F7-2E3C-4CE7-A0D5-FB4DBAAD359D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{499C4CC8-B793-4B71-B345-D1F6EB42CD5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{499C4CC8-B793-4B71-B345-D1F6EB42CD5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{499C4CC8-B793-4B71-B345-D1F6EB42CD5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{499C4CC8-B793-4B71-B345-D1F6EB42CD5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5D7CC98-6234-407C-AC08-5A02AEA528CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D7CC98-6234-407C-AC08-5A02AEA528CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D7CC98-6234-407C-AC08-5A02AEA528CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D7CC98-6234-407C-AC08-5A02AEA528CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +62,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{41A80B9B-F13D-4B53-8952-248DEBDDD41D} = {865C861D-7F28-4C4F-9F3A-65B15966006A}
 		{22BFD240-CA8B-41AB-BC9B-F77D03E67224} = {865C861D-7F28-4C4F-9F3A-65B15966006A}
+		{499C4CC8-B793-4B71-B345-D1F6EB42CD5D} = {9750A7B0-7087-405F-9ED8-40A021D44A78}
+		{D5D7CC98-6234-407C-AC08-5A02AEA528CB} = {9750A7B0-7087-405F-9ED8-40A021D44A78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EBCBD3B6-72CB-45AB-BCDA-7ADF019394B4}
